@@ -9,6 +9,7 @@ package ActionPhysics.Math
         
         public function APVector2(x:Number = 0, y:Number = 0):void
         {
+			_values = new Array();
             _values.push(x);
 			_values.push(y);
         }

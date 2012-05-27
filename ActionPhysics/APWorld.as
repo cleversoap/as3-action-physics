@@ -48,6 +48,10 @@ package ActionPhysics
 				// Update the current body
 				currentBody = currentBodyNode.body;
 				
+				// TODO: Right now it's just a gravity falling test, no collision.
+				currentBody.velocity.y += _gravity * (1/30);	// TODO: Proper delta time
+				currentBody.position.y += currentBody.velocity.y;
+				
 				// Set the current body node to the next one
 				// TODO: See if hasNext should be used here?
 				currentBodyNode = currentBodyNode.next;
@@ -55,6 +59,13 @@ package ActionPhysics
 			
 			// TODO: Dispatch update complete event.
 			this.dispatchEvent(new Event(APWorld.EVENT_UPDATE_COMPLETE));
+		}
+		
+		public function makeBody():APBody
+		{
+			var newBody:APBody = new APBody();
+			this._bodies.addBody(newBody);
+			return newBody;
 		}
 
         //----------------------------------------------------------------[ PROPERTIES ]

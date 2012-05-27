@@ -25,6 +25,7 @@ package ActionPhysics.Bodies
         public function APBody():void
         {
 			_velocity = new APVector2();
+			_position = new Point();
 			_points = new Array();
         }
 
