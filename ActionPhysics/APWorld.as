@@ -19,18 +19,20 @@ package ActionPhysics
 		
         //----------------------------------------------------------------[ MEMBERS ]
         
-        protected var _gravity  :Number;
+        protected var _gravity	:Number;
         
         //protected var _horizontalGravity:Number = 0;
         
-        protected var _bodies   :APBodyList;
+        protected var _bodies	:APBodyList;
+
+		protected var _p2m		:Number;
     
         //----------------------------------------------------------------[ CONSTRUCTOR ]
     
-        public function APWorld(gravity:Number = 9.8):void
+        public function APWorld(gravity:Number = 9.8, pixelsToMetre:Number = 1):void
         {
             this.gravity = gravity;
-
+			_p2m = pixelsToMetre;
 			_bodies = new APBodyList();
         }
         
@@ -49,7 +51,7 @@ package ActionPhysics
 				currentBody = currentBodyNode.body;
 				
 				// TODO: Right now it's just a gravity falling test, no collision.
-				currentBody.velocity.y += _gravity * (1/30);	// TODO: Proper delta time
+				currentBody.velocity.y += _gravity * (1/30) * _p2m;	// TODO: Proper delta time and pixel to metre ratio
 				currentBody.position.y += currentBody.velocity.y;
 				
 				// Set the current body node to the next one
