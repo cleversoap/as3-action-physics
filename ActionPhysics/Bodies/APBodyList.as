@@ -15,6 +15,16 @@ package ActionPhysics.Bodies
             _length = 0;
         }
         
+		public function get first():APBodyListNode
+		{
+			return _first;
+		}
+		
+		public function get last():APBodyListNode
+		{
+			return _last;
+		}
+
         public function get length():uint
         {
             return _length;
