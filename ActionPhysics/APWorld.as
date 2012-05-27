@@ -11,8 +11,11 @@ package ActionPhysics
     {
 		//----------------------------------------------------------------[ EVENTS ]
 		
-		[Event(name="worldUpdateStarting", type="flash.events.Event")]
-		[Event(name="worldUpdateComplete", type="flash.events.Event")]
+		[Event(name="APWorld.UPDATE_STARTING", type="flash.events.Event")]
+		public static const EVENT_UPDATE_STARTING	:String = "APWorld.UPDATE_STARTING";
+		
+		[Event(name="APWorld.UPDATE_COMPLETE", type="flash.events.Event")]
+		public static const EVENT_UPDATE_COMPLETE	:String = "APWorld.UPDATE_COMPLETE";
 		
         //----------------------------------------------------------------[ MEMBERS ]
         
@@ -36,6 +39,7 @@ package ActionPhysics
 		public function update():void
 		{
 			// TODO: Dispatch update starting event.
+			this.dispatchEvent(new Event(APWorld.EVENT_UPDATE_STARTING));
 			
 			var currentBodyNode:APBodyListNode = _bodies.first;
 			var currentBody:APBody;
@@ -50,6 +54,7 @@ package ActionPhysics
 			}
 			
 			// TODO: Dispatch update complete event.
+			this.dispatchEvent(new Event(APWorld.EVENT_UPDATE_COMPLETE));
 		}
 
         //----------------------------------------------------------------[ PROPERTIES ]
