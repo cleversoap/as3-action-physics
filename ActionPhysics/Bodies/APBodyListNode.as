@@ -4,6 +4,7 @@ package ActionPhysics.Bodies
     {
         protected var _body :APBody;
         protected var _next :APBodyListNode;
+		protected var _prev	:APBodyListNode;
         
         // TODO: Either tacking on an APBody or another APBodyListNode as next
         public function APBodyListNode(body:APBody):void
@@ -14,13 +15,18 @@ package ActionPhysics.Bodies
         
         public function get hasBody():Boolean
         {
-            return this.body == null;
+            return this.body != null;
         }
         
         public function get hasNext():Boolean
         {
-            return this.next == null;
+            return this.next != null;
         }
+		
+		public function get hasPrev():Boolean
+		{
+			return this.prev != null;
+		}
         
         public function get body():APBody
         {

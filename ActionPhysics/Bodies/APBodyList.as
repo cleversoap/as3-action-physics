@@ -7,12 +7,14 @@ package ActionPhysics.Bodies
         
         protected var _first    :APBodyListNode;
         protected var _last     :APBodyListNode;
+		protected var _bodies	:Vector.<APBody>
     
         public function APBodyList(... bodies):void
         {
             _first = null;
             _last = null;
             _length = 0;
+			_bodies = new Vector.<APBody>();
         }
         
 		public function get first():APBodyListNode
@@ -60,22 +62,60 @@ package ActionPhysics.Bodies
         
         public function removeBodyAt(delBodyIndex:uint):void
         {
-            _length--;
+			// Get the node to delete
+			var delNode:APBodyListNode = bodyNodeAt(delBodyIndex);
+			
+			if (delNode != null)
+			{
+			
+				// If the node to delete is the first one
+				if (delBodyIndex == 0)
+				{
+					// If there is a second node
+					if (delNode.next != null)
+					{
+						_first = delNode.next;
+					}
+				}
+				
+				// If the node to delete is the last one
+				// TODO: Finish this implementation
+				
+				_length--;
+			}
         }
         
         public function indexOf(body:APBody):uint
         {
-            return 0;
+            var currentNode:APBodyListNode = first;
+			var counter:Number = -1;
+			while (currentNode != null)
+			{
+				counter++;
+				if (currentNode.body == body)
+					return break;
+			}
+			return counter;
         }
         
         public function bodyAt(bodyIndex:uint):APBody
         {
-            return new APBody();
+			return bodyNodeAt(bodyIndex).body;
         }
         
-        public function bodyNodeAt(bodyNodeIndex:uint):APBodyListNode
+        protected function bodyNodeAt(bodyNodeIndex:uint):APBodyListNode
         {
-            return new APBodyListNode(null);
+            var currentNode:APBodyListNode = first;
+			var counter:Number = -1;
+			while (currentNode != null)
+			{
+				counter++;
+				if (counter == bodyNodeIndex)
+					break;
+				else
+					currentNode = currentNode.next;
+			}
+			return currentNode;
         }
     }
 }
