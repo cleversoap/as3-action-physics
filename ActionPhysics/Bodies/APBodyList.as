@@ -46,6 +46,7 @@ package ActionPhysics.Bodies
             else
             {
                 _last.next = newBodyNode;
+				newBodyNode.prev = _last;
                 _last = _last.next;
             }
             
@@ -93,7 +94,7 @@ package ActionPhysics.Bodies
 			{
 				counter++;
 				if (currentNode.body == body)
-					return break;
+					break;
 			}
 			return counter;
         }
