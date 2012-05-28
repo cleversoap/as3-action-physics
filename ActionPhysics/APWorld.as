@@ -29,7 +29,7 @@ package ActionPhysics
     
         //----------------------------------------------------------------[ CONSTRUCTOR ]
     
-        public function APWorld(gravity:Number = 9.8, pixelsToMetre:Number = 1):void
+        public function APWorld(pixelsToMetre:Number = 1, gravity:Number = 9.8):void
         {
             this.gravity = gravity;
 			_p2m = pixelsToMetre;
@@ -63,9 +63,18 @@ package ActionPhysics
 			this.dispatchEvent(new Event(APWorld.EVENT_UPDATE_COMPLETE));
 		}
 		
+		// TODO: This may be removed later because it isn't flexible enough - I want to be able to specify any body type
 		public function makeBody():APBody
 		{
 			var newBody:APBody = new APBody();
+			this._bodies.addBody(newBody);
+			return newBody;
+		}
+		
+		// Returns the new body so that creation and insertion into the physics engine can be done in one step
+		// eg. var newBody:APBody = _world.addBody(new APBody());
+		public function addBody(newBody:APBody):APBody
+		{
 			this._bodies.addBody(newBody);
 			return newBody;
 		}
