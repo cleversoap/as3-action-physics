@@ -10,6 +10,7 @@ package ActionPhysics.Bodies
         public function APBodyListNode(body:APBody):void
         {
             this.body = body;
+			this.prev = null;
             this.next = null;
         }
         
@@ -38,6 +39,16 @@ package ActionPhysics.Bodies
             _body = newBody;
         }
         
+		public function get prev():APBodyListNode
+		{
+			return _prev;
+		}
+		
+		public function set prev(newPrev:APBodyListNode):void
+		{
+			_prev = newPrev;
+		}
+
         public function get next():APBodyListNode
         {
             return _next;

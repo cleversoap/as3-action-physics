@@ -58,7 +58,7 @@ package ActionPhysics.Bodies
         
         public function removeBody(delBody:APBody):void
         {
-            _length--;
+			removeBodyAt(indexOf(delBody));
         }
         
         public function removeBodyAt(delBodyIndex:uint):void
@@ -81,6 +81,22 @@ package ActionPhysics.Bodies
 				
 				// If the node to delete is the last one
 				// TODO: Finish this implementation
+				else if (delBodyIndex == _length - 1)
+				{
+					if (delNode.prev != null)
+					{
+						delNode.prev.next = null;
+					}
+				}
+				
+				// Normal node with a prev and a next
+				else
+				{
+					delNode.prev.next = delNode.next;
+				}
+				
+				// Clear the node
+				delNode = null;
 				
 				_length--;
 			}
