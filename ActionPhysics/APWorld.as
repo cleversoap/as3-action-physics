@@ -19,7 +19,7 @@ package ActionPhysics
 		
         //----------------------------------------------------------------[ MEMBERS ]
         
-        protected var _gravity	:Number;
+		protected var _gravity	:Number;
         
         //protected var _horizontalGravity:Number = 0;
         
@@ -66,7 +66,7 @@ package ActionPhysics
 		// TODO: This may be removed later because it isn't flexible enough - I want to be able to specify any body type
 		public function makeBody():APBody
 		{
-			var newBody:APBody = new APBody();
+			var newBody:APBody = new APBody(APBody.RIGID);
 			this._bodies.addBody(newBody);
 			return newBody;
 		}
