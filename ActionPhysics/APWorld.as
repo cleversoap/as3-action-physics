@@ -61,8 +61,9 @@ package ActionPhysics
 				// TODO: Right now it's just a gravity falling test, no collision.
 				if (currentBody.bodyType != APBody.FIXED)
 				{
-					currentBody.velocity.y += _gravity * (_dTime / 1000) * _p2m;
-					currentBody.position.y += currentBody.velocity.y;
+					//currentBody.velocity.y += _gravity * (_dTime / 1000) * _p2m;
+					//currentBody.position.y += currentBody.velocity.y;
+					currentBody.rotation += 1;
 				}
 				
 				// Set the current body node to the next one

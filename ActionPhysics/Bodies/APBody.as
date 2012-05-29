@@ -29,6 +29,7 @@ package ActionPhysics.Bodies
         {
 			_velocity = new APVector2();
 			_position = new Point();
+			_rotation = 0;
 			_shape = (shape != null ? shape : new APShape());
         }
 		
@@ -54,34 +55,38 @@ package ActionPhysics.Bodies
 		
 		public function get position():Point
 		{
-			return _position;
+			// TODO: optimize so it isn't called as much
+			return new Point(_position.x + _shape.centre.x, _position.y + _shape.centre.y);
 		}
 		
 		public function get x():Number
 		{
-			return _position.x;
+			return this.position.x;
 		}
 		
 		public function set x(newX:Number):void
 		{
-			// Set all points to the new x
-			
-			_position.x = newX;
+			_position.x = newX - _shape.centre.x * 2;
 		}
 		
 		public function get y():Number
 		{
-			return _position.y;
+			return this.position.y;
 		}
 		
 		public function set y(newY:Number):void
 		{
-			_position.y = newY;
+			_position.y = newY - _shape.centre.y * 2;
 		}
 		
 		public function get rotation():Number
 		{
 			return _rotation;
+		}
+		
+		public function set rotation(newRotation:Number):void
+		{
+			_rotation = newRotation;
 		}
 		
 		public function get velocity():APVector2
