@@ -1,4 +1,4 @@
-package ActionPhysics.Display.APSprite
+package ActionPhysics.Display
 {
 	import flash.display.Sprite;
 	
@@ -8,14 +8,22 @@ package ActionPhysics.Display.APSprite
 	{
 		protected var _body:APBody;
 		
-		public function APSprite()
+		public function APSprite(body:APBody)
 		{
 			super();
+			_body = body;
 		}
 		
 		public function get body():APBody
 		{
 			return _body;
+		}
+		
+		public function update():void
+		{
+			this.x = _body.x;
+			this.y = _body.y;
+			this.rotation = _body.rotation;
 		}
 	}
 }

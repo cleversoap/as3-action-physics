@@ -1,6 +1,7 @@
 package ActionPhysics.Bodies.Shapes 
 {
 	import flash.geom.Point;
+	
 	public class APShapePolygon extends APShape 
 	{
 		protected var _points	:Vector.<Point>
@@ -19,6 +20,11 @@ package ActionPhysics.Bodies.Shapes
 				
 			calculateArea();
 			calculateCentre();
+		}
+		
+		public function get points():Vector.<Point>
+		{
+			return _points;
 		}
 		
 		protected override function calculateArea():void
