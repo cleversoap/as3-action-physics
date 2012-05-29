@@ -39,13 +39,13 @@ package ActionPhysics.Display
 					var dot:Sprite = pointDot();
 					dot.x = vert.x - 2;
 					dot.y = vert.y - 2;
-					this.addChild(dot)
+					//this.addChild(dot)
 				}
 			}
 			this.graphics.endFill();
 			
 			// Centroid
-			this.addChild(makeCentroid());
+			//this.addChild(makeCentroid());
 		}
 		
 		protected function pointDot():Sprite

@@ -1,7 +1,10 @@
 package ActionPhysics.Display
 {
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.geom.Matrix;
+	import flash.geom.Point;
+	import fl.motion.MatrixTransformer;
 	
 	import ActionPhysics.Bodies.APBody;
 
@@ -25,26 +28,21 @@ package ActionPhysics.Display
 		
 		public function update():void
 		{
-			this.x = _body.x;
-			this.y = _body.y;
-			this.rotation = _rotation - _body.rotation;
+			rotate(this, _body.rotation - _rotation);
+			this.y += 1;
 		}
 		
 		public override function get rotation():Number
 		{
-			return _body.rotation;
+			return _rotation;
 		}
 		
-		public override function set rotation(newRotation:Number):void
+		function rotate(ob:DisplayObject, angle:Number):void
 		{
-			var m:Matrix=this.transform.matrix;
-		    m.tx -= this.body.shape.centre.x;
-		    m.ty -= this.body.shape.centre.y;
-		    m.rotate(newRotation * (Math.PI/180)); // was a missing "=" here
-		    m.tx += this.body.shape.centre.x;
-		    m.ty += this.body.shape.centre.y;
-		    this.transform.matrix=m;
-			_rotation -= newRotation;
+			var mat:Matrix = ob.transform.matrix.clone();
+			MatrixTransformer.rotateAroundInternalPoint(mat, _body.shape.centre.x, _body.shape.centre.y, angle);
+			ob.transform.matrix = mat;
+			_rotation = _body.rotation;
 		}
 	}
 }
