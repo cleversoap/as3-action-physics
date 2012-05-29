@@ -4,6 +4,7 @@ package ActionPhysics.Bodies
     import flash.geom.Point;
 
 	import ActionPhysics.Math.APVector2;
+	import ActionPhysics.Bodies.Shapes.APShape;
 
     public class APBody extends EventDispatcher
     {
@@ -17,18 +18,18 @@ package ActionPhysics.Bodies
 		
 		protected var _rotation	:Number;
 		
-		protected var _points	:Array;
+		protected var _shape	:APShape;
 		
 		protected var _bodyType	:String;
 		
 		// X,Y velocity
 		protected var _velocity	:APVector2;
         
-        public function APBody(bodyType:String, points:Array = null):void
+        public function APBody(bodyType:String, shape:APShape = null):void
         {
 			_velocity = new APVector2();
 			_position = new Point();
-			_points = (points != null && points is Array ? points : new Array());
+			_shape = (shape != null ? shape : new APShape());
         }
 		
 		public function get mass():Number
@@ -39,6 +40,16 @@ package ActionPhysics.Bodies
 		public function set mass(newMass:Number):void
 		{
 			_mass = newMass;
+		}
+		
+		public function get shape():APShape
+		{
+			return _shape;
+		}
+		
+		public function set shape(newShape:APShape):void
+		{
+			_shape = newShape;
 		}
 		
 		public function get position():Point
