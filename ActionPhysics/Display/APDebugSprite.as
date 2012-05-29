@@ -29,23 +29,23 @@ package ActionPhysics.Display
 				var shape:APShapePolygon = _body.shape as APShapePolygon;
 				
 				// Vertexes
-				this.graphics.moveTo(shape.points[0].x, shape.points[0].y);
+				this.graphics.moveTo(shape.points[0].x - shape.centre.x, shape.points[0].y - shape.centre.y);
 				for each (var point:Point in shape.points)
-					this.graphics.lineTo(point.x, point.y);
+					this.graphics.lineTo(point.x - shape.centre.x, point.y - shape.centre.y);
 					
 				// Verticies
 				for each (var vert:Point in shape.points)
 				{
 					var dot:Sprite = pointDot();
-					dot.x = vert.x - 2;
-					dot.y = vert.y - 2;
-					//this.addChild(dot)
+					dot.x = vert.x - 2 - shape.centre.x;
+					dot.y = vert.y - 2 - shape.centre.y;
+					this.addChild(dot)
 				}
 			}
 			this.graphics.endFill();
 			
 			// Centroid
-			//this.addChild(makeCentroid());
+			this.addChild(makeCentroid());
 		}
 		
 		protected function pointDot():Sprite
@@ -66,8 +66,8 @@ package ActionPhysics.Display
 			centroid.graphics.moveTo( -4, 0);
 			centroid.graphics.lineTo(4, 0);
 			centroid.graphics.endFill();
-			centroid.x = _body.shape.centre.x;
-			centroid.y = _body.shape.centre.y;
+			centroid.x = 0;
+			centroid.y = 0;
 			return centroid;
 		}
 	}

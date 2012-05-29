@@ -56,7 +56,7 @@ package ActionPhysics.Bodies
 		public function get position():Point
 		{
 			// TODO: optimize so it isn't called as much
-			return new Point(_position.x + _shape.centre.x, _position.y + _shape.centre.y);
+			return new Point(_position.x, _position.y);
 		}
 		
 		public function get x():Number
@@ -66,7 +66,7 @@ package ActionPhysics.Bodies
 		
 		public function set x(newX:Number):void
 		{
-			_position.x = newX - _shape.centre.x;
+			_position.x = newX;
 		}
 		
 		public function get y():Number
@@ -76,7 +76,7 @@ package ActionPhysics.Bodies
 		
 		public function set y(newY:Number):void
 		{
-			_position.y = newY - _shape.centre.y;
+			_position.y = newY;
 		}
 		
 		public function get rotation():Number

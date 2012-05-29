@@ -28,21 +28,9 @@ package ActionPhysics.Display
 		
 		public function update():void
 		{
-			rotate(this, _body.rotation - _rotation);
-			this.y += 1;
-		}
-		
-		public override function get rotation():Number
-		{
-			return _rotation;
-		}
-		
-		function rotate(ob:DisplayObject, angle:Number):void
-		{
-			var mat:Matrix = ob.transform.matrix.clone();
-			MatrixTransformer.rotateAroundInternalPoint(mat, _body.shape.centre.x, _body.shape.centre.y, angle);
-			ob.transform.matrix = mat;
-			_rotation = _body.rotation;
+			this.x = _body.x;
+			this.y = _body.y;
+			this.rotation = _body.rotation;
 		}
 	}
 }

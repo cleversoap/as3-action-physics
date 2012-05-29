@@ -62,8 +62,9 @@ package ActionPhysics
 				if (currentBody.bodyType != APBody.FIXED)
 				{
 					currentBody.velocity.y += _gravity * (_dTime / 1000) * _p2m;
+					currentBody.x += currentBody.velocity.x;
 					currentBody.y += currentBody.velocity.y;
-					currentBody.rotation += 1;
+					//currentBody.rotation += 1;
 				}
 				// Set the current body node to the next one
 				// TODO: See if hasNext should be used here?
