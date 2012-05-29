@@ -2,6 +2,7 @@ package ActionPhysics
 {
 	import flash.events.EventDispatcher;
 	import flash.events.Event;
+	import flash.utils.getTimer;
 	
 	import ActionPhysics.Bodies.APBody;
     import ActionPhysics.Bodies.APBodyList;
@@ -26,6 +27,10 @@ package ActionPhysics
         protected var _bodies	:APBodyList;
 
 		protected var _p2m		:Number;
+		
+		// Time stepping
+		protected var _timer	:int;
+		protected var _dTime	:int;
     
         //----------------------------------------------------------------[ CONSTRUCTOR ]
     
@@ -40,8 +45,11 @@ package ActionPhysics
 		
 		public function update():void
 		{
-			// TODO: Dispatch update starting event.
 			this.dispatchEvent(new Event(APWorld.EVENT_UPDATE_STARTING));
+			
+			// Update the delta time
+			_dTime = getTimer() - _timer;
+			_timer = getTimer();
 			
 			var currentBodyNode:APBodyListNode = _bodies.first;
 			var currentBody:APBody;
@@ -51,7 +59,7 @@ package ActionPhysics
 				currentBody = currentBodyNode.body;
 				
 				// TODO: Right now it's just a gravity falling test, no collision.
-				currentBody.velocity.y += _gravity * (1/30) * _p2m;	// TODO: Proper delta time and pixel to metre ratio
+				currentBody.velocity.y += _gravity * (_dTime / 1000) * _p2m;
 				currentBody.position.y += currentBody.velocity.y;
 				
 				// Set the current body node to the next one
@@ -59,7 +67,6 @@ package ActionPhysics
 				currentBodyNode = currentBodyNode.next;
 			}
 			
-			// TODO: Dispatch update complete event.
 			this.dispatchEvent(new Event(APWorld.EVENT_UPDATE_COMPLETE));
 		}
 		
