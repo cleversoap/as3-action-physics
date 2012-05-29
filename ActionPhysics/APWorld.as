@@ -100,5 +100,10 @@ package ActionPhysics
         {
             _gravity = newGravity;
         }
+
+		public function get bodies():APBodyList
+		{
+			return _bodies;
+		}
     }
 }

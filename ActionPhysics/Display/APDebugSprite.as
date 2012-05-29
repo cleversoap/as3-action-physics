@@ -36,7 +36,10 @@ package ActionPhysics.Display
 				// Verticies
 				for each (var vert:Point in shape.points)
 				{
-					
+					var dot:Sprite = pointDot();
+					dot.x = vert.x - 2;
+					dot.y = vert.y - 2;
+					this.addChild(dot)
 				}
 			}
 			this.graphics.endFill();
@@ -45,14 +48,23 @@ package ActionPhysics.Display
 			this.addChild(makeCentroid());
 		}
 		
+		protected function pointDot():Sprite
+		{
+			var dot = new Sprite();
+			dot.graphics.beginFill(0xBBFF00);
+			dot.graphics.drawRect(0,0,4,4);
+			dot.graphics.endFill();
+			return dot;
+		}
+		
 		protected function makeCentroid():Sprite
 		{
 			var centroid:Sprite = new Sprite();
 			centroid.graphics.lineStyle(1, 0xFF0000);
-			centroid.graphics.moveTo(0,2);
-			centroid.graphics.lineTo(0, -2);
-			centroid.graphics.moveTo( -2, 0);
-			centroid.graphics.lineTo(2, 0);
+			centroid.graphics.moveTo(0,4);
+			centroid.graphics.lineTo(0, -4);
+			centroid.graphics.moveTo( -4, 0);
+			centroid.graphics.lineTo(4, 0);
 			centroid.graphics.endFill();
 			centroid.x = _body.shape.centre.x;
 			centroid.y = _body.shape.centre.y;
