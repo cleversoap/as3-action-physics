@@ -31,6 +31,7 @@ package ActionPhysics.Bodies
 			_position = new Point();
 			_rotation = 0;
 			_shape = (shape != null ? shape : new APShape());
+			_bodyType = bodyType
         }
 		
 		public function get mass():Number
@@ -55,8 +56,7 @@ package ActionPhysics.Bodies
 		
 		public function get position():Point
 		{
-			// TODO: optimize so it isn't called as much
-			return new Point(_position.x, _position.y);
+			return _position;
 		}
 		
 		public function get x():Number

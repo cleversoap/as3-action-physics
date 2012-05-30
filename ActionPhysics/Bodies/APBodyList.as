@@ -1,20 +1,25 @@
 package ActionPhysics.Bodies
 {
-    public class APBodyList
+	import ActionPhysics.Events.APBodyEvent;
+	import flash.events.EventDispatcher;
+	import flash.events.Event;
+	
+    public class APBodyList extends EventDispatcher
     {
+		public static const EVENT_BODY_ADDED	:String = "APBodyList.BODY_ADDED";
+		public static const EVENT_BODY_REMOVED	:String = "APBodyList.BODY_REMOVED";
+		
         /// Easier than doing an iteration of the entire list to get the length, especially if there are a lot of bodies
         protected var _length   :uint;
         
         protected var _first    :APBodyListNode;
         protected var _last     :APBodyListNode;
-		protected var _bodies	:Vector.<APBody>
     
         public function APBodyList(... bodies):void
         {
             _first = null;
             _last = null;
             _length = 0;
-			_bodies = new Vector.<APBody>();
         }
         
 		public function get first():APBodyListNode
@@ -47,13 +52,15 @@ package ActionPhysics.Bodies
             {
                 _last.next = newBodyNode;
 				newBodyNode.prev = _last;
-                _last = _last.next;
+                _last = newBodyNode;
             }
             
             _length++;
             
             if (this.length == 1)
                 _last = _first;
+				
+			//this.dispatchEvent(new APBodyEvent(EVENT_BODY_ADDED, newBodyNode.body));
         }
         
         public function removeBody(delBody:APBody):void
@@ -95,10 +102,13 @@ package ActionPhysics.Bodies
 					delNode.prev.next = delNode.next;
 				}
 				
+				_length--;
+				
+				// Dispatch the event
+				//this.dispatchEvent(new APBodyEvent(EVENT_BODY_REMOVED, delNode.body));
+				
 				// Clear the node
 				delNode = null;
-				
-				_length--;
 			}
         }
         

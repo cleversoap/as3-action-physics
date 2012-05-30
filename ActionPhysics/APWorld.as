@@ -7,7 +7,8 @@ package ActionPhysics
 	import ActionPhysics.Bodies.APBody;
     import ActionPhysics.Bodies.APBodyList;
 	import ActionPhysics.Bodies.APBodyListNode;
-
+	import ActionPhysics.Collision.APCollisionManager;
+	
     public class APWorld extends EventDispatcher
     {
 		//----------------------------------------------------------------[ EVENTS ]
@@ -25,7 +26,9 @@ package ActionPhysics
         //protected var _horizontalGravity:Number = 0;
         
         protected var _bodies	:APBodyList;
-
+		
+		protected var _collider	:APCollisionManager;
+		
 		protected var _p2m		:Number;
 		
 		// Time stepping
@@ -39,6 +42,7 @@ package ActionPhysics
             this.gravity = gravity;
 			_p2m = pixelsToMetre;
 			_bodies = new APBodyList();
+			_collider = new APCollisionManager(_bodies);
         }
         
 		//----------------------------------------------------------------[ PUBLIC FUNCTIONS ]
@@ -53,18 +57,23 @@ package ActionPhysics
 			
 			var currentBodyNode:APBodyListNode = _bodies.first;
 			var currentBody:APBody;
+			var i:Number = -1;
 			while(currentBodyNode != null)
 			{
+				// Current body index
+				i++;
+				
 				// Update the current body
 				currentBody = currentBodyNode.body;
 				
 				// TODO: Right now it's just a gravity falling test, no collision.
 				if (currentBody.bodyType != APBody.FIXED)
 				{
+					// Gravity velocity
 					currentBody.velocity.y += _gravity * (_dTime / 1000) * _p2m;
-					currentBody.x += currentBody.velocity.x;
-					currentBody.y += currentBody.velocity.y;
-					//currentBody.rotation += 1;
+					
+					// Update collisions
+					_collider.updateBody(currentBody);
 				}
 				// Set the current body node to the next one
 				// TODO: See if hasNext should be used here?
@@ -77,7 +86,7 @@ package ActionPhysics
 		public function makeBody():APBody
 		{
 			var newBody:APBody = new APBody(APBody.RIGID);
-			this._bodies.addBody(newBody);
+			_bodies.addBody(newBody);
 			return newBody;
 		}
 		
@@ -85,7 +94,7 @@ package ActionPhysics
 		// eg. var newBody:APBody = _world.addBody(new APBody());
 		public function addBody(newBody:APBody):APBody
 		{
-			this._bodies.addBody(newBody);
+			_bodies.addBody(newBody);
 			return newBody;
 		}
 
