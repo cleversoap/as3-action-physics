@@ -3,7 +3,9 @@ package ActionPhysics.Collision
 	import ActionPhysics.Bodies.APBody;
 	import ActionPhysics.Bodies.APBodyList;
 	import ActionPhysics.Bodies.APBodyListNode;
+	import ActionPhysics.Bodies.Shapes.APShapeRectangle;
 	import ActionPhysics.Events.APBodyEvent;
+	import flash.geom.Point;
 
 	public class APCollisionManager 
 	{
@@ -27,13 +29,31 @@ package ActionPhysics.Collision
 				currentBody = currentBodyNode.body;
 				if (currentBody != body)
 				{
-					// Silly test just to see if I can positionally compare bodies - I'm well aware how inaccurate and bad this is.
-					if (Math.abs(body.y + body.velocity.y - currentBody.y) < body.shape.centre.y * 2 && Math.abs(body.x + body.velocity.y - currentBody.x) < currentBody.shape.centre.x * 2)
+					// If comparing square to square
+					if (body.shape is APShapeRectangle && currentBody.shape is APShapeRectangle)
 					{
-						body.velocity.x = 0;
-						body.velocity.y = 0;
-						// Top of the colliding shape first
-						body.position.y = (currentBody.y - currentBody.shape.centre.y) - body.shape.centre.y;
+						var p1:Point = new Point((body.x - body.shape.centre.x) + body.velocity.x, (body.y - body.shape.centre.y) + body.velocity.y);
+						var p2:Point = new Point(currentBody.x - currentBody.shape.centre.x, currentBody.y - currentBody.shape.centre.y);
+						var w1:Number = (body.shape as APShapeRectangle).width;
+						var h1:Number = (body.shape as APShapeRectangle).height;
+						var w2:Number = (currentBody.shape as APShapeRectangle).width;
+						var h2:Number = (currentBody.shape as APShapeRectangle).height;
+						
+						if (p1.x + w1 > p2.x)
+						{
+							if (p1.x < p2.x + w2)
+							{
+								if (p1.y + h1 > p2.y)
+								{
+									if (p1.y < p2.y + h2)
+									{
+										// TODO: Vector aware collisions
+										body.velocity.y = 0;
+										body.position.y = (currentBody.y - currentBody.shape.centre.y) - body.shape.centre.y;
+									}
+								}
+							}
+						}
 					}
 				}
 				currentBodyNode = currentBodyNode.next;
