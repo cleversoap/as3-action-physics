@@ -87,6 +87,8 @@ package ActionPhysics.Bodies
 		public function set rotation(newRotation:Number):void
 		{
 			_rotation = newRotation;
+			
+			// TODO: Rotate the shape object? Create a new collision model?
 		}
 		
 		public function get velocity():APVector2

@@ -49,6 +49,7 @@ package ActionPhysics.Collision
 									{
 										// TODO: Vector aware collisions
 										body.velocity.y = 0;
+										//body.velocity.y = (currentBody.y - currentBody.shape.centre.y) - (body.y + body.shape.centre.y);
 										body.position.y = (currentBody.y - currentBody.shape.centre.y) - body.shape.centre.y;
 									}
 								}
